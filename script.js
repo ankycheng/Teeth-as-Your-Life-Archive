@@ -54,34 +54,34 @@ function bindLayers() {
 const svg = document.getElementById("tooth_1");
 const path = document.getElementById("path_1");
 
-const svgRect = svg.getBoundingClientRect();
+// const svgRect = svg.getBoundingClientRect();
 
-svg.addEventListener("mousemove", function (event) {
-  const mouseX = event.clientX - svgRect.left;
-  const mouseY = event.clientY - svgRect.top;
+// svg.addEventListener("mousemove", function (event) {
+//   const mouseX = event.clientX - svgRect.left;
+//   const mouseY = event.clientY - svgRect.top;
 
-  // Create an SVGPoint in the user coordinate system
-  let s = svg.createSVGPoint();
+//   // Create an SVGPoint in the user coordinate system
+//   let s = svg.createSVGPoint();
 
-  // Then, set the x and y values of the returned SVGPoint object
-  // (which is the variable `s`)
-  s.x = mouseX;
-  s.y = mouseY;
-  // console.log(s)
+//   // Then, set the x and y values of the returned SVGPoint object
+//   // (which is the variable `s`)
+//   s.x = mouseX;
+//   s.y = mouseY;
+//   // console.log(s)
 
-  // console.log(mouseX +' ' +mouseY)
-  if (path.isPointInStroke(s)) {
-    // console.log('Mouse is on stroke');
-    // path.style.stroke = '#ff0011';
-    // path.style.transform = 'scale(1.005)';
-    path.style.filter = "drop-shadow(0 0 3px #fff)";
-  } else {
-    // console.log('Mouse is not on stroke');
-    // path.style.stroke = '#eadeda';
-    // path.style.transform = 'scale(1)';
-    path.style.filter = "none";
-  }
-});
+//   // console.log(mouseX +' ' +mouseY)
+//   if (path.isPointInStroke(s)) {
+//     // console.log('Mouse is on stroke');
+//     // path.style.stroke = '#ff0011';
+//     // path.style.transform = 'scale(1.005)';
+//     path.style.filter = "drop-shadow(0 0 3px #fff)";
+//   } else {
+//     // console.log('Mouse is not on stroke');
+//     // path.style.stroke = '#eadeda';
+//     // path.style.transform = 'scale(1)';
+//     path.style.filter = "none";
+//   }
+// });
 // const svgRect = svg.getBoundingClientRect();
 
 /**

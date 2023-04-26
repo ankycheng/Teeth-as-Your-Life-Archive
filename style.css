@@ -4,7 +4,7 @@ body {
 
 #svgs {
   position: relative;
-  border: 1px white solid;
+  /* border: 1px white solid; */
 }
 
 #svgs svg {
@@ -20,7 +20,7 @@ body {
   stroke: #eadeda;
   stroke-dasharray: 2100;
   stroke-dashoffset: 0;
-  transition: 1s;
+  transition: 3s;
   /*   animation: dash 10s linear forwards; */
 }
 
