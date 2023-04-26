@@ -1,5 +1,5 @@
 module.exports = {
   build: {
-    outDir: "./docs",
+    outDir: "./dist",
   },
 };
