@@ -74,7 +74,7 @@ function addLayer(svgPath, layerId) {
   pathEl.setAttributeNS(null, "fill", "transparent");
   pathEl.setAttributeNS(null, "d", serialedSclSVGTS);
   pathEl.setAttributeNS(null, "stroke-width", 1);
-  pathEl.setAttributeNS(null, "style", `animation: dash 3s linear forwards; filter: drop-shadow(0 0 5px ${color})}`);
+  pathEl.setAttributeNS(null, "style", `animation: dash ${3 + layerId*0.5}s linear forwards; filter: drop-shadow(0 0 10px ${color})}`);
   // svgsEl.appendChild(pathEl);
   svgsEl.prepend(pathEl);
   addOnStrokeListener(layerId, color);
@@ -111,12 +111,12 @@ function addOnStrokeListener(layerId, color) {
       p.style.stroke = color;
       // path.style.transform = "scale(1.005)";
       // p.style.filter = "drop-shadow(0 0 3px #fff)";
-      p.style.filter = `drop-shadow(0 0 10px ${color})`;
+      p.style.filter = `drop-shadow(0 0 30px ${color})`;
     } else {
       // console.log('Mouse is not on stroke');
       p.style.stroke = '#eadeda';
       // path.style.transform = "scale(1)";
-      p.style.filter = `drop-shadow(0 0 1px ${color})`;
+      p.style.filter = `drop-shadow(0 0 10px ${color})`;
     }
   });
 }

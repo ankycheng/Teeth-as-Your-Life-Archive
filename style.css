@@ -16,11 +16,11 @@ body {
 }
 
 .path {
-  border: 1px red solid;
+  /* border: 1px red solid; */
   stroke: #eadeda;
   stroke-dasharray: 2100;
   stroke-dashoffset: 0;
-  transition: 3s;
+  transition: 1.5s;
   /*   animation: dash 10s linear forwards; */
 }
 
