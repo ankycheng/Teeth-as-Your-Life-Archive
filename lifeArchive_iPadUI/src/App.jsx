@@ -1,22 +1,14 @@
-//https://github.com/leandrowd/react-responsive-carousel
-
-import { useState } from "react";
-// import HumanMolar from './assets/HumanMolar.png';
-import './App.scss'
+import IntroCarousel from "./IntroCarousel";
+import "./App.scss";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  let list = [1, 2, 3];
   return (
-    <>
-      <div className="container flex flex-col	justify-center items-center">
-        <div id="bg-info">
-        </div>
-        <h1 className="my-4 text-4xl font-bold">Background information</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      </div>
-    </>
+    <div id="app" className="flex flex-col justify-center items-center">
+      <IntroCarousel></IntroCarousel>
+    </div>
   );
+  
 }
 
 export default App;

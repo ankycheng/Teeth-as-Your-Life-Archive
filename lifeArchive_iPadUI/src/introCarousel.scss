@@ -1,0 +1,17 @@
+#bg-info{
+  overflow: hidden;
+  p{
+    text-align-last: left;
+  }
+  
+  .img-holder{
+    // width: 50vh;
+    background-color: #000;
+    position: relative;
+    // transform: translateX(calc(50vw - 50%));
+    img{
+      max-height: 300px;
+      width: auto;
+    }
+  }
+}

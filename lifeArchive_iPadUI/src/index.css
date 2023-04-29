@@ -73,3 +73,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.carousel .slide{
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
