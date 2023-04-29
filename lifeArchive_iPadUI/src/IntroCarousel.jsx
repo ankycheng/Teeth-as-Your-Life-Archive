@@ -86,7 +86,7 @@ class IntroCarousel extends Component {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor
                       </span>
-                      <img src="./assets/Enter_Right.svg" alt="" />
+                      <img className="cta" src="./assets/Enter_Right.svg" alt="" />
                     </div>
                   </div>
                   <div className="read-others m-4 p-4">
@@ -99,7 +99,7 @@ class IntroCarousel extends Component {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor
                       </span>
-                      <img src="./assets/Enter_Right.svg" alt="" />
+                      <img className="cta" src="./assets/Enter_Right.svg" alt="" />
                     </div>
                   </div>
                 </div>

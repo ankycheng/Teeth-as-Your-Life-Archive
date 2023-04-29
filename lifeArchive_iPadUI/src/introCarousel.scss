@@ -18,7 +18,22 @@
   .cards {
     & .img-holder {
       background-color: transparent;
-      & img {
+    }
+
+    // & :hover {
+    //   .cta {
+    //     transition: 1s;
+    //     transform: scale(1.1);
+    //   }
+    // }
+    .cards-desc .cta {
+      transition: 1s;
+      transform: scale(1);
+    }
+    .cards-desc:hover {
+      .cta {
+        transition: 1s;
+        transform: scale(1.1);
       }
     }
 
@@ -30,13 +45,13 @@
   }
 }
 
-.carousel .slide .cards-desc img{
+.carousel .slide .cards-desc img {
   width: 30px;
 }
 
-.carousel.carousel-slider .control-arrow{
+.carousel.carousel-slider .control-arrow {
   background: none;
-  &:hover{
+  &:hover {
     background: none;
   }
 }
