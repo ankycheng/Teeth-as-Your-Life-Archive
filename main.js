@@ -73,7 +73,7 @@ function addLayer(svgPath, layerId) {
   pathEl.setAttributeNS(null, "class", "path");
   pathEl.setAttributeNS(null, "fill", "transparent");
   pathEl.setAttributeNS(null, "d", serialedSclSVGTS);
-  pathEl.setAttributeNS(null, "stroke-width", 1);
+  pathEl.setAttributeNS(null, "stroke-width", 3);
   pathEl.setAttributeNS(null, "style", `animation: dash ${3 + layerId*0.5}s linear forwards; filter: drop-shadow(0 0 10px ${color})}`);
   // svgsEl.appendChild(pathEl);
   svgsEl.prepend(pathEl);
