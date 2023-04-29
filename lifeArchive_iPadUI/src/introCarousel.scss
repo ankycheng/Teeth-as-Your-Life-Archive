@@ -1,17 +1,42 @@
-#bg-info{
+#bg-info {
   overflow: hidden;
-  p{
+  p {
     text-align-last: left;
   }
-  
-  .img-holder{
+
+  .img-holder {
     // width: 50vh;
+    border-radius: 10px;
     background-color: #000;
     position: relative;
     // transform: translateX(calc(50vw - 50%));
-    img{
-      max-height: 300px;
+    img {
+      max-height: 45vh;
       width: auto;
     }
+  }
+  .cards {
+    & .img-holder {
+      background-color: transparent;
+      & img {
+      }
+    }
+
+    & > div {
+      border-radius: 10px;
+      background-color: #000;
+      text-align-last: left;
+    }
+  }
+}
+
+.carousel .slide .cards-desc img{
+  width: 30px;
+}
+
+.carousel.carousel-slider .control-arrow{
+  background: none;
+  &:hover{
+    background: none;
   }
 }
