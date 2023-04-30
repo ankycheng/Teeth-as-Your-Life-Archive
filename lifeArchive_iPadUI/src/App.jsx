@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import IntroCarousel from "./IntroCarousel";
+import Drawing from "./Drawing"
 import "./App.scss";
 
 class App extends Component{
@@ -7,13 +8,13 @@ class App extends Component{
     super(props);
     this.list = [1, 2, 3];
     this.state = {
-      
+      step: 1
     }
   }
   render(){
     return (
       <div id="app" className="flex flex-col justify-center items-center">
-        <IntroCarousel ></IntroCarousel>
+        {this.state.step === 0 ? <IntroCarousel ></IntroCarousel> : <Drawing></Drawing>}
       </div>
     );
   }
