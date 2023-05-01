@@ -8,7 +8,7 @@ export default defineConfig({
     host: true,
   },
   build: {
-    outDir: "../dist",
+    outDir: "./dist",
   },
   base: "/Teeth-as-Your-Life-Archive/"
 });
