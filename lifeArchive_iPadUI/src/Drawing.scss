@@ -32,10 +32,20 @@
     margin-left: 1%;
     margin-right: 1%;
     border: 1px white solid;
-    border-radius: 5%;
-    transition: 0.5s;
-    &:hover{
+    border-radius: 20px;
+    background-color: var(--main-bg-color);
+    transition: 1s;
+    &.selected{
+      background-color: var(--main-selected-color);
+      color: var(--main-bg-color);
+      border: var(--main-bg-color);
       transform: translateY(-3px);
+      .mood-card-tag{
+        border-top: 1px solid var(--main-bg-color);
+      }
+    }
+
+    &:hover{
       cursor: pointer;
     }
     img{

@@ -8,16 +8,24 @@ class App extends Component{
     super(props);
     this.list = [1, 2, 3];
     this.state = {
-      step: 1
+      step: 0
     }
   }
   render(){
     return (
       <div id="app" className="flex flex-col justify-center items-center">
-        {this.state.step === 0 ? <IntroCarousel ></IntroCarousel> : <Drawing></Drawing>}
+        {this.state.step === 0 ? <IntroCarousel updateStep={()=>this.updateStep}></IntroCarousel> : <Drawing></Drawing>}
       </div>
     );
   }
+  updateStep = (i) => {
+    this.setState(()=>{
+      return {
+        step: this.state.step += i
+      }
+    })
+  }
+
   
   // onConfirm={this.handleLanguage}
 }

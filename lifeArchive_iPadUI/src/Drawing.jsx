@@ -1,16 +1,51 @@
 import React, { Component } from "react";
+import { writeImageData, getDrawings } from "./db";
 import "./Drawing.scss";
+
+const moodList = [
+  {
+    mood: "Happy",
+    img: ""
+  },
+  {
+    mood: "Sad",
+    img: ""
+  },
+  {
+    mood: "Fear",
+    img: ""
+  },
+  {
+    mood: "Surprise",
+    img: ""
+  },
+  {
+    mood: "Worry",
+    img: ""
+  },
+  {
+    mood: "Painful",
+    img: ""
+  }
+]
 
 class Drawing extends Component {
   constructor(props) {
     super(props);
     this.state = {
       state: "drawing", // drawing or mood
+      selectedMood: null,
+      drawingData: {
+        img: null,
+        mood: null,
+      },
     };
     // this.componentDidMount();
   }
   componentDidMount() {
     this.bindBtns();
+    this.listeningForImageData();
+    getDrawings();
   }
   render() {
     return (
@@ -48,12 +83,17 @@ class Drawing extends Component {
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
           </p>
-          <div id="moods" className="flex flex-wrap mt-4">
+          <div id="moods" className={`flex flex-wrap mt-4`}>
             {Array.from({ length: 6 }, (_, i) => {
               return (
-                <div key={i} className="mood-card my-4">
+                <div key={i} className={`mood-card my-4 ${this.state.selectedMood === i ? 'selected':''}`}>
                   <img src="" alt="" />
-                  <div className="mood-card-tag p-4">mood {i + 1}</div>
+                  <div className="mood-card-tag p-4" 
+                      onClick={()=>this.updateMood(i)}
+                      
+                  >  
+                      {moodList[i].mood}
+                  </div>
                 </div>
               );
             })}
@@ -73,14 +113,10 @@ class Drawing extends Component {
     let btnFinsih = document.getElementById("btn-submit");
 
     btnDrawdone.addEventListener("click", () => {
-      this.setState({
-        state: this.state.state === "drawing" ? "mood" : "drawing",
-      });
+      this.updateDrawState();
     });
     btnRedraw.addEventListener("click", () => {
-      this.setState({
-        state: this.state.state === "drawing" ? "mood" : "drawing",
-      });
+      this.updateDrawState();
     });
     btnFinsih.addEventListener("click", () => {
       let ifm = document.getElementById("sketch-iframe");
@@ -90,6 +126,61 @@ class Drawing extends Component {
         "https://beryl-lilac-plot.glitch.me/"
       );
     });
+  }
+
+  listeningForImageData() {
+    window.addEventListener("message", (event) => {
+      // IMPORTANT: check the origin of the data!
+      if (event.origin.includes("glitch")) {
+        console.log("parent receives message");
+        console.log(event);
+        if (event.data.img) {
+          this.updateDrawState();
+          this.updateDrawingData(event.data.img);
+        } else {
+          console.error("wrong data type");
+        }
+      }
+    });
+  }
+
+  updateDrawState() {
+    this.setState({
+      state: this.state.state === "drawing" ? "mood" : "drawing",
+    });
+  }
+
+  updateDrawingData(imgBase64Data) {
+    this.setState((prevState) => ({
+      drawingData: {
+        ...prevState.drawingData,
+        img: imgBase64Data,
+      },
+    }));
+  }
+
+  updateMood(moodId) {
+    // this.setState((prevState) => {
+    //   selectedMood: moodList[moodId];
+    // });
+    console.log('mood clicked')
+
+    this.setState((prevState) => {
+      return {
+        drawingData: {
+          ...prevState.drawingData,
+          mood: moodList[moodId].mood
+        },
+        selectedMood: moodId
+      }
+    });
+
+    // this.setState((prevState) => ({
+    //   drawingData: {
+    //     ...prevState.drawingData,
+    //     img: imgBase64Data,
+    //   },
+    // }));
   }
 }
 

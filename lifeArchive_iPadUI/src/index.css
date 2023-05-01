@@ -11,7 +11,9 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
+  --main-bg-color: #242424;
   background-color: #242424;
+  --main-selected-color: rgba(255, 255, 255, 0.87);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -37,7 +39,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  /* min-width: 320px; */
   min-height: 100vh;
 }
 
@@ -79,7 +81,7 @@ button:focus-visible {
 }
 
 .carousel .slide{
-  height: 100vh;
+  /* height: 100vh; */
   position: relative;
   display: flex;
   align-items: center;

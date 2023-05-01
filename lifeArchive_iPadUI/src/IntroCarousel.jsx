@@ -46,9 +46,9 @@ class IntroCarousel extends Component {
         showStatus={false}
       >
         {this.infoList.map((item, index) => {
-          if (index >= 1) {
+          if (index <3) {
             return (
-              <div key={index} id="bg-info" className="my-8 mx-8">
+              <div key={index} id="bg-info" className="my-8">
                 {/* <img src={require(item.img)} alt="" /> */}
                 <div className="img-holder flex flex-col justify-center items-center">
                   <img src={item.img} alt="" srcSet="" />
@@ -61,7 +61,7 @@ class IntroCarousel extends Component {
             );
           } else {
             return (
-              <div key={index} id="bg-info" className="my-8 mx-8">
+              <div key={index} id="bg-info" className="my-8">
                 {/* <div className="img-holder flex flex-col justify-center items-center">
                   <img src={item.img} alt="" srcSet="" />
                 </div> */}
@@ -76,7 +76,7 @@ class IntroCarousel extends Component {
                   </p>
                 </div>
                 <div className="cards flex flex-row justify-center items-center">
-                  <div className="archive-exp m-4 p-4">
+                  <div className="archive-exp m-4 p-4" onClick={this.props.updateStep(1)}>
                     <div className="img-holder flex flex-col justify-center items-center">
                       <img src={item.img} alt="" srcSet="" />
                     </div>
