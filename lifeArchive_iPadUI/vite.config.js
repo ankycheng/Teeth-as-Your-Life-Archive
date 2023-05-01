@@ -7,4 +7,8 @@ export default defineConfig({
   server: {
     host: true,
   },
+  build: {
+    outDir: "../dist",
+  },
+  base: "/Teeth-as-Your-Life-Archive/"
 });
