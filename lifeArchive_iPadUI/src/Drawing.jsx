@@ -54,7 +54,7 @@ class Drawing extends Component {
           id="drawing-draw"
           className={`"" ${this.state.state === "drawing" ? "show" : "hide"}`}
         >
-          <div id="drawing-info" className="mb-8">
+          <div id="drawing-info" className="mb-4">
             <h1 className={`mb-4`}>Put down your experiences</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -63,7 +63,7 @@ class Drawing extends Component {
               nisi ut aliquip ex ea commodo consequat.
             </p>
           </div>
-          <button id="btn-drawdone">Next</button>
+          {/* <button id="btn-drawdone">Next</button> */}
           <iframe
             id="sketch-iframe"
             src="https://beryl-lilac-plot.glitch.me/"
@@ -109,12 +109,12 @@ class Drawing extends Component {
 
   bindBtns() {
     let btnRedraw = document.getElementById("btn-redraw");
-    let btnDrawdone = document.getElementById("btn-drawdone");
+    // let btnDrawdone = document.getElementById("btn-drawdone");
     let btnFinsih = document.getElementById("btn-submit");
 
-    btnDrawdone.addEventListener("click", () => {
-      this.updateDrawState();
-    });
+    // btnDrawdone.addEventListener("click", () => {
+    //   this.updateDrawState();
+    // });
     btnRedraw.addEventListener("click", () => {
       this.updateDrawState();
     });

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import "./IntroCarousel.scss";
@@ -44,9 +45,10 @@ class IntroCarousel extends Component {
         showArrows={true}
         emulateTouch={true}
         showStatus={false}
+        width={'90vw'}
       >
         {this.infoList.map((item, index) => {
-          if (index <3) {
+          if (index < 3) {
             return (
               <div key={index} id="bg-info" className="my-8">
                 {/* <img src={require(item.img)} alt="" /> */}
@@ -76,32 +78,47 @@ class IntroCarousel extends Component {
                   </p>
                 </div>
                 <div className="cards flex flex-row justify-center items-center">
-                  <div className="archive-exp m-4 p-4" onClick={this.props.updateStep(1)}>
-                    <div className="img-holder flex flex-col justify-center items-center">
-                      <img src={item.img} alt="" srcSet="" />
+                  <Link to="/draw" className="m-8">
+                    <div
+                      className="archive-exp m-4 p-4"
+                      onClick={this.props.updateStep(1)}
+                    >
+                      <div className="img-holder flex flex-col justify-center items-center">
+                        <img src={item.img} alt="" srcSet="" />
+                      </div>
+                      <h3>Archive My Experience</h3>
+                      <div className="cards-desc flex flex-row items-end">
+                        <span>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor
+                        </span>
+                        <img
+                          className="cta"
+                          src="./assets/Enter_Right.svg"
+                          alt=""
+                        />
+                      </div>
                     </div>
-                    <h3>Archive My Experience</h3>
-                    <div className="cards-desc flex flex-row items-end">
-                      <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor
-                      </span>
-                      <img className="cta" src="./assets/Enter_Right.svg" alt="" />
+                  </Link>
+                  <Link className="m-8">
+                    <div className="read-others m-4 p-4">
+                      <div className="img-holder flex flex-col justify-center items-center">
+                        <img src={item.img} alt="" srcSet="" />
+                      </div>
+                      <h3>Read Others</h3>
+                      <div className="cards-desc flex flex-row items-end">
+                        <span>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor
+                        </span>
+                        <img
+                          className="cta"
+                          src="./assets/Enter_Right.svg"
+                          alt=""
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="read-others m-4 p-4">
-                    <div className="img-holder flex flex-col justify-center items-center">
-                      <img src={item.img} alt="" srcSet="" />
-                    </div>
-                    <h3>Read Others</h3>
-                    <div className="cards-desc flex flex-row items-end">
-                      <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor
-                      </span>
-                      <img className="cta" src="./assets/Enter_Right.svg" alt="" />
-                    </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             );

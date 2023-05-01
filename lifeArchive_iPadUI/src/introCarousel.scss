@@ -1,5 +1,4 @@
 #bg-info {
-  overflow: hidden;
   p {
     text-align-last: left;
   }
@@ -9,7 +8,6 @@
     border-radius: 10px;
     background-color: #000;
     position: relative;
-    // transform: translateX(calc(50vw - 50%));
     img {
       max-height: 45vh;
       width: auto;
@@ -19,13 +17,6 @@
     & .img-holder {
       background-color: transparent;
     }
-
-    // & :hover {
-    //   .cta {
-    //     transition: 1s;
-    //     transform: scale(1.1);
-    //   }
-    // }
     .cards-desc .cta {
       transition: 1s;
       transform: scale(1);
@@ -37,12 +28,18 @@
       }
     }
 
-    & > div {
+    & > a {
       border-radius: 10px;
       background-color: #000;
       text-align-last: left;
+      color: initial;
+      text-decoration: none;
     }
   }
+}
+
+.carousel .slide{
+  padding: 5vw;
 }
 
 .carousel .slide .cards-desc img {
