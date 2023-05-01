@@ -100,11 +100,16 @@ class Drawing extends Component {
           </div>
           <div className="mood-actions flex justify-between">
             <button id="btn-redraw">Redraw</button>
-            <button id="btn-submit">Finish</button>
+            <button id="btn-submit" onClick={()=>this.writeImageData()}>Finish</button>
           </div>
         </div>
       </div>
     );
+  }
+
+  writeImageData(){
+    writeImageData(this.state.drawingData);
+    console.log('data uploaded')
   }
 
   bindBtns() {

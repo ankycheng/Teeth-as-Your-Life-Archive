@@ -14,13 +14,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-async function writeImageData(id, img) {
+async function writeImageData(data) {
   const db = getDatabase(app);
-  set(ref(db, "data/" + id), {
-    id: id,
-    img: "base64",
-    ts: new Date().getTime(),
-  });
+  let ts = new Date().getTime();
+  set(ref(db, "data/"+ts), data);
 }
 
 // Get a list of cities from your database
