@@ -29,31 +29,39 @@
 
   .mood-card{
     width: 31%;
-    height: 20vh;
+    // height: 20vh;
     margin-left: 1%;
     margin-right: 1%;
-    border: 1px white solid;
+    // border: 1px white solid;
     border-radius: 20px;
     background-color: var(--main-bg-color);
     transition: 1s;
+    overflow: hidden;
     &.selected{
       background-color: var(--main-selected-color);
       color: var(--main-bg-color);
       border: var(--main-bg-color);
       transform: translateY(-3px);
-      .mood-card-tag{
-        border-top: 1px solid var(--main-bg-color);
-      }
+      // .mood-card-tag{
+      //   border-top: 1px solid var(--main-bg-color);
+      // }
     }
 
     &:hover{
       cursor: pointer;
     }
-    img{
-      height: 75%;
+
+    .mood-img-holder{
+      min-height: 180px;
+      pointer-events: none;
+      img{
+        height: 100%;
+      }
     }
-    .mood-card-tag{
-      border-top: 1px solid white;
-    }
+
+    
+    // .mood-card-tag{
+      // border-top: 1px solid white;
+    // }
   }
 }

@@ -11,8 +11,9 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  --main-bg-color: #242424;
-  background-color: #242424;
+  --main-bg-color: #000;
+  background-color: #000;
+  --main-black-color: #242424;
   --main-selected-color: rgba(255, 255, 255, 0.87);
 
   font-synthesis: none;

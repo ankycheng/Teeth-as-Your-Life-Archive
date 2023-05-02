@@ -4,31 +4,36 @@ import "./Drawing.scss";
 
 const moodList = [
   {
-    mood: "Happy",
-    img: ""
+    mood: "Joy",
+    img: "./assets/mood_joy.png",
+    color: "#E868A2",
   },
   {
     mood: "Sad",
-    img: ""
-  },
-  {
-    mood: "Fear",
-    img: ""
+    img: "./assets/mood_sad.png",
+    color: "#147EFB",
   },
   {
     mood: "Surprise",
-    img: ""
+    img: "./assets/mood_surprise.png",
+    color: "#FECB2E",
   },
   {
-    mood: "Worry",
-    img: ""
+    mood: "Fear",
+    img: "./assets/mood_fear.png",
+    color: "#9C2AA0",
   },
   {
-    mood: "Painful",
-    img: ""
-  }
-]
-
+    mood: "Stressed",
+    img: "./assets/mood_stressed.png",
+    color: "#53D769",
+  },
+  {
+    mood: "Love",
+    img: "./assets/mood_love.png",
+    color: "#FC3D39",
+  },
+];
 class Drawing extends Component {
   constructor(props) {
     super(props);
@@ -55,12 +60,10 @@ class Drawing extends Component {
           className={`"" ${this.state.state === "drawing" ? "show" : "hide"}`}
         >
           <div id="drawing-info" className="mb-4">
-            <h1 className={`mb-4`}>Put down your experiences</h1>
+            <h1 className={`mb-4`}>Share your experience!</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Your story will be anonymous. However, please note that others
+              will be able to access and read any information you include here.
             </p>
           </div>
           {/* <button id="btn-drawdone">Next</button> */}
@@ -78,21 +81,29 @@ class Drawing extends Component {
             What best describes your related feeling?{" "}
           </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Based on the drawing or text you have created, please select from
+            the options below the emotion that most accurately reflects how you
+            felt during the shared experience.
           </p>
           <div id="moods" className={`flex flex-wrap mt-4`}>
-            {Array.from({ length: 6 }, (_, i) => {
+            {moodList.map((mood, i) => {
               return (
-                <div key={i} className={`mood-card my-4 ${this.state.selectedMood === i ? 'selected':''}`}>
-                  <img src="" alt="" />
-                  <div className="mood-card-tag p-4" 
-                      onClick={()=>this.updateMood(i)}
-                      
-                  >  
-                      {moodList[i].mood}
+                <div
+                  key={i}
+                  onClick={() => this.updateMood(i)}
+                  className={`mood-card my-4 ${
+                    this.state.selectedMood === i ? "selected" : ""
+                  }`}
+                > 
+                  <div className="mood-img-holder flex align-center justify-center pt-4 pb-2"
+                    style={{backgroundColor: mood.color}}
+                  >
+                    <img src={mood.img} alt="" />
+                  </div>
+                  <div
+                    className="mood-card-tag flex align-center justify-center pt-2 pb-2"
+                  >
+                    {moodList[i].mood}
                   </div>
                 </div>
               );
@@ -100,16 +111,18 @@ class Drawing extends Component {
           </div>
           <div className="mood-actions flex justify-between">
             <button id="btn-redraw">Redraw</button>
-            <button id="btn-submit" onClick={()=>this.writeImageData()}>Finish</button>
+            <button id="btn-submit" onClick={() => this.writeImageData()}>
+              Finish
+            </button>
           </div>
         </div>
       </div>
     );
   }
 
-  writeImageData(){
+  writeImageData() {
     writeImageData(this.state.drawingData);
-    console.log('data uploaded')
+    console.log("data uploaded");
   }
 
   bindBtns() {
@@ -168,16 +181,16 @@ class Drawing extends Component {
     // this.setState((prevState) => {
     //   selectedMood: moodList[moodId];
     // });
-    console.log('mood clicked')
+    console.log("mood clicked");
 
     this.setState((prevState) => {
       return {
         drawingData: {
           ...prevState.drawingData,
-          mood: moodList[moodId].mood
+          mood: moodList[moodId].mood,
         },
-        selectedMood: moodId
-      }
+        selectedMood: moodId,
+      };
     });
 
     // this.setState((prevState) => ({
