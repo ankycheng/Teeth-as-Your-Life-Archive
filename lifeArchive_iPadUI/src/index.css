@@ -85,7 +85,7 @@ button:focus-visible {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .carousel * {
   text-align: left;
@@ -94,5 +94,5 @@ button:focus-visible {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }

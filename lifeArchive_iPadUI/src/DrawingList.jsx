@@ -16,11 +16,13 @@ class DrawingList extends Component {
 
   async updateArchive() {
     let drawings = await getDrawings();
+    console.log(drawings)
     
     let drawingList = Object.entries(drawings).map((drawing) => {
         return {
           ts: drawing[0],
           img: "data:image/png;base64, " + drawing[1].img,
+          mood: drawing[1].mood
         };
       })
       console.log(drawingList);
@@ -31,11 +33,13 @@ class DrawingList extends Component {
 
   render() {
     return (
-      <div id="archive" className="flex flex-col justify-center items-center">
+      <div id="archive" className="flex flex-row justify-center items-center flex-wrap">
         {this.state.archive.map((archive, index) => {
           return (
-            <div key={index} className="archive-card">
+            <div key={index} className="archive-card p-4 m-4">
               <img src={archive.img} alt="" />
+              <h3>uid: {archive.ts}</h3>
+              <h3>Mood: {archive.mood}</h3>
             </div>
           );
         })}

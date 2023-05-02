@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import IntroCarousel from "./IntroCarousel";
 import Drawing from "./Drawing";
 import DrawingList from "./DrawingList";
+import ToothLayers from "./ToothLayers";
 import "./App.scss";
 
 class App extends Component {
@@ -25,13 +26,7 @@ class App extends Component {
             ></Route>
             <Route path="draw" element={<Drawing />}></Route>
             <Route path="archive" element={<DrawingList />}></Route>
-            {/* {this.state.step === 0 ? (
-              <IntroCarousel updateStep={() => this.updateStep}></IntroCarousel>
-            ) : (
-              <Drawing></Drawing>
-            )} */}
-
-            {/* </Route> */}
+            <Route path="layers" element={<ToothLayers />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

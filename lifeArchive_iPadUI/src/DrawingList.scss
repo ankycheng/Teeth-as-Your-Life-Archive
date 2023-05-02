@@ -1,8 +1,14 @@
 #archive{
     width: 100vw;
     height: 100vw;
-    // .archive-card{
-    //     width: 100px;
-    //     height: 100px;
-    // }
+    overflow: scroll;
+    .archive-card{
+        width: 80%;
+        height: auto;
+        border: 1px solid white;
+        border-radius: 10px;
+        img{
+            // border: 1px yellow dashed;
+        }
+    }
 }
