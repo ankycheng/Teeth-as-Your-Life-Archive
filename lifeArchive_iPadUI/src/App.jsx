@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import IntroCarousel from "./IntroCarousel";
 import Drawing from "./Drawing";
+import DrawingList from "./DrawingList";
 import "./App.scss";
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
               element={<IntroCarousel updateStep={() => this.updateStep} />}
             ></Route>
             <Route path="draw" element={<Drawing />}></Route>
-
+            <Route path="archive" element={<DrawingList />}></Route>
             {/* {this.state.step === 0 ? (
               <IntroCarousel updateStep={() => this.updateStep}></IntroCarousel>
             ) : (

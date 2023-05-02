@@ -21,25 +21,31 @@ async function writeImageData(data) {
 }
 
 // Get a list of cities from your database
-async function getDrawings() {
+const getDrawings = async function () {
   const db = getDatabase(app);
-  //   const drawingCol = collection(db, "data");
-  //   const drawingSnapshot = await getDocs(drawingCol);
-  //   const drawingList = drawingSnapshot.docs.map((img) => img.data());
-  //   console.log(drawingList);
-  //   return drawingList;
-  const dbRef = ref(getDatabase());
-  get(child(dbRef, `data`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log("No data available");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  const dbRef = ref(getDatabase(app));
+  let data = null;
+
+  let snapshot = await get(child(dbRef, `data`));
+  if(snapshot.exists()){
+    data = snapshot.val()
+  }
+  return data
+
+    // .then((snapshot) => {
+    //   if (snapshot.exists()) {
+    //     // console.log(snapshot.val());
+    //     data = snapshot.val()
+    //     return data;
+    //   } else {
+    //     console.log("No data available");
+    //   }
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    // });
+
+  
 }
 
 export { writeImageData, getDrawings };
