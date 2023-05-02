@@ -37,8 +37,6 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
-      - name: Change directory to site
-        run: cd lifeArchive_iPadUI
       - name: Build
         run: npm run build
       - name: Setup Pages
