@@ -38,7 +38,8 @@ class Drawing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      state: "drawing", // drawing or mood
+      state: "mood", // drawing or mood or loading
+      showLoading: false,
       selectedMood: null,
       drawingData: {
         img: null,
@@ -74,7 +75,7 @@ class Drawing extends Component {
         </div>
         <div
           id="drawing-mood"
-          className={`"" ${this.state.state === "drawing" ? "hide" : "show"}`}
+          className={`${this.state.state === "drawing" ? "hide" : "show"}`}
         >
           <h1 className={`mb-4`}>
             {" "}
@@ -111,10 +112,26 @@ class Drawing extends Component {
           </div>
           <div className="mood-actions flex justify-between">
             <button id="btn-redraw">Redraw</button>
-            <button id="btn-submit" onClick={() => this.writeImageData()}>
+            <button id="btn-submit" 
+              onClick={
+                () => {
+                  this.writeImageData();
+                  this.playArchivingVideo();
+                }
+              }
+            >
               Finish
             </button>
           </div>
+        </div>
+        <div id="drawing-archiving" className={`flex flex-col justify-center items-center ${this.state.showLoading === true ? "archive-show": "archive-hide"}`}>
+            <video>
+              <source src="./assets/loading.mp4" type="video/mp4" />
+            </video>
+            <div id="drawing-archiving-content">
+              <h3>Archiving</h3>
+              <span>Information about only impactful experience will be recorded.</span>
+            </div>
         </div>
       </div>
     );
@@ -145,6 +162,18 @@ class Drawing extends Component {
       );
     });
   }
+
+  playArchivingVideo(){
+    this.setState({
+      showLoading: true
+    })
+    const videoEl = document.querySelector('#drawing-archiving video');
+    videoEl.play();
+    videoEl.addEventListener('ended', ()=>{
+      console.log('end')
+    })
+  }
+
 
   listeningForImageData() {
     window.addEventListener("message", (event) => {

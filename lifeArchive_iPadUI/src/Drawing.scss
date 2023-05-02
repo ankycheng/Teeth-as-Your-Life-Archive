@@ -1,17 +1,17 @@
-#drawing{
+#drawing {
   width: calc(100vw - 4rem);
   position: relative;
   height: 90vh;
   overflow: scroll;
-  iframe{
+  iframe {
     width: 100%;
     height: 60vh;
   }
-  #btn-submit{
+  #btn-submit {
     z-index: 1;
   }
-  
-  .show{
+
+  .show {
     opacity: 1;
     pointer-events: initial;
     position: absolute;
@@ -19,7 +19,7 @@
     top: 0;
   }
 
-  .hide{
+  .hide {
     opacity: 0;
     pointer-events: none;
     position: absolute;
@@ -27,7 +27,7 @@
     top: 0;
   }
 
-  .mood-card{
+  .mood-card {
     width: 31%;
     // height: 20vh;
     margin-left: 1%;
@@ -37,7 +37,7 @@
     background-color: var(--main-bg-color);
     transition: 1s;
     overflow: hidden;
-    &.selected{
+    &.selected {
       background-color: var(--main-selected-color);
       color: var(--main-bg-color);
       border: var(--main-bg-color);
@@ -47,21 +47,39 @@
       // }
     }
 
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
 
-    .mood-img-holder{
+    .mood-img-holder {
       min-height: 180px;
       pointer-events: none;
-      img{
+      img {
         height: 100%;
       }
     }
-
-    
     // .mood-card-tag{
-      // border-top: 1px solid white;
+    // border-top: 1px solid white;
     // }
+  }
+  #drawing-archiving {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--main-bg-color);
+    z-index: 5;
+    display: none;
+    &.archive-show {
+      display: flex;
+    }
+    #drawing-archiving-content {
+      transform: translateY(-100%);
+      h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
   }
 }
