@@ -25,33 +25,37 @@ server.listen(3000, () => {
     console.log('listening on *:3000');
 });
 
+let layerPageId
 
 
 io.on('connection', (socket) => {
+    console.log()
     let count = 0;
     let dir = 1;
-    let data = {
-        x: 500, 
-        y: 300
-    }
-    setInterval(() => {
-        // data.x += 1;
-        data.y += 1;
-        io.to(socket.id).emit('data', data);
-        count+=1;
-        // if(count>100||count<0) {dir = dir* -1}
-        console.log(data)
-    }, 50)
+
+    if(socket.handshake.auth.token === 'layer') layerPageId = socket.id;
 
     socket.on('selectLayer',(data)=>{
-        console.log(data);
+        // console.log(data); 
         socket.broadcast.emit('displayLayer', data);
     })
 
+    socket.on('updatePos',(data)=>{
+        // console.log(data);
+        // io.to(layerPageId).emit('data', data);
+        io.emit('data',data)
+    })
+
+    socket.on('addLayer',(data)=>{
+        // console.log(data);
+        // io.to(layerPageId).emit('data', data);
+        console.log('new layer added');
+        io.emit('addLayer')
+    })
+    
+
     socket.on('disconnect', () => {
         count = 0;
-        data.x = 500;
-        data.y = 300;
         console.log('user disconnected');
     });
 
