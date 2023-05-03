@@ -4,6 +4,7 @@ import IntroCarousel from "./IntroCarousel";
 import Drawing from "./Drawing";
 import DrawingList from "./DrawingList";
 import ToothLayers from "./ToothLayers";
+import ToothDisplay from "./ToothDisplay";
 import "./App.scss";
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
             <Route path="draw" element={<Drawing />}></Route>
             <Route path="archive" element={<DrawingList />}></Route>
             <Route path="layers" element={<ToothLayers />}></Route>
+            <Route path="display" element={<ToothDisplay />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

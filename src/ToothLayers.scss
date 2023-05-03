@@ -1,24 +1,44 @@
-#layers{
-    stroke: white;
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    svg{
-        width: 801px;
-        height: 487.99px;
-        fill: none;
-        path {
-            stroke: white;
-            stroke-width: 3px;
-        }
+#layers {
+  stroke: white;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 640px;
+    height: 371px;
+    fill: none;
+    path {
+    //   display: none;
+      stroke: white;
+      stroke-width: 10px;
+      stroke-dasharray: 2100;
+      stroke-dashoffset: 0;
+      transition: 1.5s;
+      animation: dash 10s linear forwards;
+    //   &#path_0{
+    //     display: initial;
+    //   }
     }
-    #indicator{
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: red;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-    }
+  }
+  #indicator {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 2100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
