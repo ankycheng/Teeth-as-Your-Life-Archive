@@ -46,6 +46,8 @@ body {
 
 body,html{
   background-color: #000 !important;
+  touch-action: none;
+  overflow: hidden;
 }
 
 h1 {

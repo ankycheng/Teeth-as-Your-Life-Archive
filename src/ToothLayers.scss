@@ -11,16 +11,15 @@
     height: 371px;
     fill: none;
     path {
-    //   display: none;
+      display: none;
       stroke: white;
       stroke-width: 10px;
       stroke-dasharray: 2100;
       stroke-dashoffset: 0;
+      stroke-linecap: round;
       transition: 1.5s;
-      animation: dash 10s linear forwards;
-    //   &#path_0{
-    //     display: initial;
-    //   }
+      filter: drop-shadow(0 0 3px yellow);
+      animation: dash 15s linear forwards;
     }
   }
   #indicator {

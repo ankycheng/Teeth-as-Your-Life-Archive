@@ -14,8 +14,12 @@
     }
   }
   .cards {
+    
     & .img-holder {
       background-color: transparent;
+    }
+    .cards-desc{
+      color: white;
     }
     .cards-desc .cta {
       transition: 1s;

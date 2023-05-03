@@ -1,3 +1,7 @@
 #tooth-display{
     width: 100vw;
+    #display-image-holder{
+        filter: drop-shadow(0 0 2px #ffff00);
+        // border: yellow solid 1px;
+    }
 }

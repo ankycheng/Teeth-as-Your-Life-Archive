@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { getDrawings } from "./db";
 import "./ToothLayers.scss";
 import {
   getPosData,
@@ -7,11 +8,14 @@ import {
   layerSocket,
 } from "./socket.js";
 
+let imgIdx = 0
+
 class ToothLayers extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentSelectedPath: null,
+      layerShownNumber: 1
     };
   }
 
@@ -22,6 +26,11 @@ class ToothLayers extends Component {
     // this.addIndicatorListener()
     buildLayerPageSC();
     this.updatePosData();
+    this.oneLayerAdded();
+    layerSocket.on('addLayer', ()=>{
+      console.log('add layer')
+      this.oneLayerAdded();
+    })
   }
 
   render() {
@@ -76,8 +85,20 @@ class ToothLayers extends Component {
             d="m86.9,54.1l14.7,34.9,19,44.7c0,.1.1.2.1.3l10.3,30.6,11.2,29.7c.1.2.1.4.2.6l6.3,28.3c0,.1,4.6,43.6,6.6,42.4l4.4-16c.9-.5,5.3-20.2,5.6-21.3l5.3-20.8,34.8-114.7q0-.1.1-.2l17.2-47.3c3-8.4,8.1-15.9,14.8-21.8l.3-.3c10.1-8.9,22.6-14.5,36-16,5.8-.7,11.7-1.3,16.3-1.9,5.3-.6,10.6-.8,15.9-.5l44.5,2.3c5.1.3,10.1,1.2,15,2.8l6.6,2.2c9.5,3.1,17.8,8.9,23.9,16.7l1.2,1.6c.2.3.4.6.5.9l13.3,29.2c.1.2.2.5.2.7l18,69,12.8,52.7,8.5,41.5c0,.1,0,.2.1.3,0,0,3.3,15.6,3.4,21.4.4,57.6,13.5-14.3,14.2-16.2,11.9-30,20.6-58.9,20.8-59.3l6.6-22.5c0-.1.1-.2.1-.2l29-70,11.7-26.6"
           />
         </svg> */}
+        <button className="select-layer" onClick={()=>{layerSocket.emit('selectLayer', imgIdx); imgIdx+=1}}
+        style={{transform: `translateY(100px)`}}
+        >select layer</button>
       </div>
     );
+  }
+
+  oneLayerAdded(){
+    let layers = document.querySelectorAll("path[id^='path_']");
+    if(this.state.layerShownNumber > layers.length) return
+    layers[this.state.layerShownNumber].style.display = 'initial';
+    this.setState({
+      layerShownNumber: this.state.layerShownNumber+=1
+    })
   }
 
   addOnStrokeListener(layerId, color) {
@@ -167,9 +188,10 @@ class ToothLayers extends Component {
             } else {
               counter += 1;
             }
-
+            layerPath.style.filter = `drop-shadow(0 0 5px ${color})`;
             if (counter > 70) {
-              layerPath.style.stroke = "red";
+              layerPath.style.stroke = "yellow";
+              layerSocket.emit('selectLayer', index)
             }
             // selectLayer(layerSocket, layerPath.id);
           } else {

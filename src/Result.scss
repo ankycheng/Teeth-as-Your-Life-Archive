@@ -1,0 +1,17 @@
+#result{
+    background-color: #DDEC1F;
+    width: 100vw;
+    height: 100vh;
+    color: black;
+    h3{
+        font-size: 2rem;
+    }
+    button{
+        background: #DDEC1F;
+        border-radius: 30px;
+        border: black solid 1px;
+    }
+    &>div{
+        display: flex;
+    }
+}

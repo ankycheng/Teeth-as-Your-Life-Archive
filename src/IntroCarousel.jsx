@@ -114,7 +114,10 @@ class IntroCarousel extends Component {
                     </div>
                   </Link>
                   <Link className="my-8 mx-2 flex-1">
-                    <div className="read-others m-4 p-4">
+                    <div
+                      className="read-others m-4 p-4"
+                      onClick={() => (window.location.href = "/result?type=read")}
+                    >
                       <div className="img-holder flex flex-col justify-center items-center">
                         <img src={item.img} alt="" srcSet="" />
                       </div>

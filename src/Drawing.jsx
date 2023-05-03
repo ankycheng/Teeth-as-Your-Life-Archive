@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { writeImageData, getDrawings } from "./db";
+import {
+  buildDrawingPageSC,
+  drawingSocket
+} from "./socket.js";
 import "./Drawing.scss";
 
 const moodList = [
@@ -49,6 +53,7 @@ class Drawing extends Component {
     // this.componentDidMount();
   }
   componentDidMount() {
+    buildDrawingPageSC();
     this.bindBtns();
     this.listeningForImageData();
     getDrawings();
@@ -170,7 +175,9 @@ class Drawing extends Component {
     const videoEl = document.querySelector('#drawing-archiving video');
     videoEl.play();
     videoEl.addEventListener('ended', ()=>{
-      console.log('end')
+      // console.log('end')
+      drawingSocket.emit('addLayer')
+      window.location.href = '/result?type=archive';
     })
   }
 
