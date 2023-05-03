@@ -11,5 +11,4 @@ export default defineConfig({
     outDir: "./dist",
   },
   // base: '/Teeth-as-Your-Life-Archive/'
-  base: '/'
 });

@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 import "./ToothLayers.scss";
+import {getPosData, selectLayer} from "./socket.js";
 
 class ToothLayers extends Component {
   componentDidMount() {
-    for(let i = 0; i<15;i++){
+    for (let i = 0; i < 15; i++) {
       this.addOnStrokeListener(i, "yellow");
     }
-    this.addIndicatorListener()
-    
+    // this.addIndicatorListener()
+    this.updatePosData();
   }
 
   render() {
     return (
-      
       <div id="layers" className="flex flex-col justify-center items-center">
-        <div id="indicator">
-
-        </div>
+        <div id="indicator"></div>
         <svg
           id="tooth-layer"
           xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +99,10 @@ class ToothLayers extends Component {
       let mouseY = event.clientY - svgRect.top;
 
       // Create an SVGPoint in the user coordinate system
-      let s = svg.createSVGPoint();
+      // let s = svg.createSVGPoint();
+      var s = document
+        .createElementNS("http://www.w3.org/2000/svg", "svg")
+        .createSVGPoint();
 
       // Then, set the x and y values of the returned SVGPoint object
       // (which is the variable `s`)
@@ -125,13 +126,48 @@ class ToothLayers extends Component {
     });
   }
 
-  addIndicatorListener(){
-    document.addEventListener('mousemove',(event)=>{
-      let indicator = document.getElementById('indicator');
-      indicator.style.left = event.clientX + 'px';
-      indicator.style.top = event.clientY + 'px';
-    })
+  addIndicatorListener() {
+    document.addEventListener("mousemove", (event) => {
+      let indicator = document.getElementById("indicator");
+      indicator.style.left = event.clientX + "px";
+      indicator.style.top = event.clientY + "px";
+    });
   }
+
+  updatePosData = () => {
+    let start = Date.now();
+    // let football = document.querySelector("#indicator")
+    // timestamp: time elapsed in milliseconds since the web page was loaded
+    let svg = document.getElementById("tooth-layer");
+    let svgRect = svg.getBoundingClientRect();
+    let layers = document.querySelectorAll("path[id^='path_']");
+    var s = document
+      .createElementNS("http://www.w3.org/2000/svg", "svg")
+      .createSVGPoint();
+
+    requestAnimationFrame(function moveIndicator(timestamp) {
+      let interval = Date.now() - start;
+      let pos = getPosData();
+
+      let indicator = document.getElementById("indicator");
+      indicator.style.left = pos.x + "px";
+      indicator.style.top = pos.y + "px";
+
+      let indX = pos.x - svgRect.left;
+      let indY = pos.y - svgRect.top;
+      s.x = indX;
+      s.y = indY;
+
+      layers.forEach((layerPath, index) => {
+        if (layerPath.isPointInStroke(s)) {
+          console.log("Mouse is on stroke " + layerPath.id);
+          selectLayer(layerPath.id);
+        }
+      });
+
+      requestAnimationFrame(moveIndicator); // queue request for next frame
+    });
+  };
 }
 
 export default ToothLayers;

@@ -38,7 +38,7 @@ class Drawing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      state: "mood", // drawing or mood or loading
+      state: "drawing", // drawing or mood or loading
       showLoading: false,
       selectedMood: null,
       drawingData: {
