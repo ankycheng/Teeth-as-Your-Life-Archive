@@ -11,9 +11,10 @@
     height: 371px;
     fill: none;
     path {
-      display: none;
+      // display: none;
+      display: initial;
       stroke: white;
-      stroke-width: 10px;
+      stroke-width: 5px;
       stroke-dasharray: 2100;
       stroke-dashoffset: 0;
       stroke-linecap: round;

@@ -25,18 +25,17 @@ class Result extends Component {
           id="result-archive"
           className="flex flex-col justify-center items-center flex-col"
         >
-          <div id="result-img-holder">
-            <img src="./assets/mood_fear.png" alt="" />
-          </div>
+          {/* <div id="result-img-holder">
+            <img src="./assets/archived.png" alt="" />
+          </div> */}
           <h3>Your experience is archived.</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Your story is safely archived as a layer. Enjoy to read others’
+            stories on the tooth or restart to create another layer with a
+            story.
           </p>
           <button
-            className="mt-8 self-end"
+            className="mt-8"
             onClick={() => (window.location.href = "/")}
           >
             Restart
@@ -50,15 +49,13 @@ class Result extends Component {
           className="flex flex-col justify-center items-center flex-col"
         >
           <div id="result-img-holder">
-            <img src="./assets/mood_fear.png" alt="" srcset="" />
+            {/* <img src="./assets/mood_fear.png" alt="" srcset="" /> */}
+            <video loop autoPlay>
+              <source src="./assets/read.mp4" type="video/mp4" />
+            </video>
           </div>
           <h3>Select one and read.</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
+          <p>Select a layer to read a story.</p>
           <button
             className="mt-8 self-end"
             onClick={() => (window.location.href = "/")}

@@ -1,10 +1,46 @@
 import React, { Component } from "react";
-import { displaySocket,buildDisplayPageSC } from "./socket.js";
-import { getDrawings} from "./db";
+import { displaySocket, buildDisplayPageSC } from "./socket.js";
+import { getDrawings } from "./db";
 import "./ToothDisplay.scss";
 
-let timer;
 
+const moodList = [
+  {
+    mood: "Joy",
+    img: "./assets/mood_joy.png",
+    color: "#E868A2",
+  },
+  {
+    mood: "Sad",
+    img: "./assets/mood_sad.png",
+    color: "#147EFB",
+  },
+  {
+    mood: "Surprise",
+    img: "./assets/mood_surprise.png",
+    color: "#FECB2E",
+  },
+  {
+    mood: "Fear",
+    img: "./assets/mood_fear.png",
+    color: "#9C2AA0",
+  },
+  {
+    mood: "Stressed",
+    img: "./assets/mood_stressed.png",
+    color: "#53D769",
+  },
+  {
+    mood: "Love",
+    img: "./assets/mood_love.png",
+    color: "#FC3D39",
+  },
+];
+
+let timer;
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 class ToothDisplay extends Component {
   constructor(props) {
     super(props);
@@ -15,32 +51,55 @@ class ToothDisplay extends Component {
         },
       ],
       status: "animation", // intro, display, playing animation?
-      displayIndex: 0
+      displayIndex: 0,
     };
   }
 
   componentDidMount() {
     buildDisplayPageSC();
     this.updateArchive();
-    displaySocket.on("displayLayer", (data) => {
-      if(timer <30 && this.state.status === "display") return
-      this.setState({
-        status: "display",
-        displayIndex: this.state.archive.length - 1 - data
-      })
-      timer = 0
-    });
-    setInterval(()=>{
-      if(timer > 30){
+
+    displaySocket.on("displayLatest", () => {
+      if (timer < 30 && this.state.status === "display") return;
+      this.updateArchive();
+      setTimeout(() => {
         this.setState({
-          status: "animation"
-        })
-        timer = 0
+          status: "display",
+          displayIndex: this.state.archive.length - 1,
+        });
+        timer = 0;
+      }, 2000);
+    });
+
+    displaySocket.on("displayRandom", (data) => {
+      if (timer < 30 && this.state.status === "display") return;
+      this.updateArchive();
+      let rdmIndex;
+      
+      setTimeout(() => {
+        rdmIndex = getRandomInt(this.state.archive.length - 1);
+        this.setState({
+          status: "display",
+          displayIndex: rdmIndex,
+        });
+        
+        let color = moodList.find(m=>m.mood===this.state.archive[rdmIndex].mood).color;
+        console.log(color)
+        document.getElementById('display-image-holder').style.border = `${color}`
+        timer = 0;
+      }, 1000);
+    });
+
+    setInterval(() => {
+      if (timer > 50) {
+        this.setState({
+          status: "animation",
+        });
+        timer = 0;
+      } else if (this.state.status === "display") {
+        timer += 1;
       }
-      else if(this.state.status === "display"){
-        timer += 1
-      }
-    },100)
+    }, 100);
   }
 
   render() {
@@ -55,26 +114,18 @@ class ToothDisplay extends Component {
   }
 
   getDisplayContent() {
-    if (this.state.status === "display") {
-      return (
-        <div id="display-image-holder" className="px-8">
-          <img
-            src={this.state.archive[this.state.displayIndex].img}
-            alt=""
-          />
+    return (
+      <div>
+        <div id="display-image-holder" className={`px-8 ${this.state.status === "display" ? "show" : "hide"}`}>
+          <img src={this.state.archive[this.state.displayIndex].img} alt="" />
         </div>
-      );
-    }
-
-    if (this.state.status === "animation") {
-      return (
-        <div id="display-animation">
+        <div id="display-animation" className={`px-8 ${this.state.status === "animation" ? "show" : "hide"}`}>
           <video loop autoPlay>
             <source src="./assets/welcome.mp4" type="video/mp4" />
           </video>
         </div>
-      );
-    }
+      </div>
+    );
   }
 
   async updateArchive() {
@@ -85,11 +136,12 @@ class ToothDisplay extends Component {
         ts: drawing[0],
         img: "data:image/png;base64, " + drawing[1].img,
         mood: drawing[1].mood,
+        sharing: drawing[1].sharing,
       };
     });
-    // console.log(drawingList);
+
     this.setState({
-      archive: drawingList,
+      archive: drawingList.filter((d) => d.sharing),
     });
   }
 }

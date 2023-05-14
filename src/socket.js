@@ -1,11 +1,12 @@
-import { io } from "socket.io-client";
+import { Socket, io } from "socket.io-client";
 
 let pos = {
   x: null,
   y: null,
 };
 
-const serverUrl = "http://10.18.213.78:3000";
+// const serverUrl = "http://10.18.213.78:3000";
+const serverUrl = "http://10.18.223.226:3000";
 
 // const socket = io("https://984f-216-165-95-183.ngrok-free.app", {
 //   reconnectionDelayMax: 10000
@@ -14,6 +15,7 @@ const serverUrl = "http://10.18.213.78:3000";
 export let layerSocket;
 export let drawingSocket;
 export let displaySocket;
+
 
 export function buildDisplayPageSC() {
   displaySocket = io(serverUrl, {

@@ -1,7 +1,9 @@
 #bg-info {
-  p {
-    text-align-last: left;
-  }
+  height: 100%;
+  text-align: center;
+  // p {
+    // text-align-last: left;
+  // }
 
   .img-holder {
     // width: 50vh;
@@ -36,7 +38,7 @@
       min-height: 620px;
       border-radius: 10px;
       background-color: #000;
-      text-align-last: left;
+      // text-align-last: left;
       color: initial;
       text-decoration: none;
     }
