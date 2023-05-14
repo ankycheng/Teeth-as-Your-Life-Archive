@@ -85,7 +85,7 @@ class IntroCarousel extends Component {
           } else {
           // else if (index < infoList.length - 1) {
             return (
-              <div key={index} id="bg-info" className="my-8 container flex flex-col justify-center items-start">
+              <div key={index} id="bg-info" className="my-8 container flex flex-col justify-center align-center">
                 <div className="container flex flex-col justify-center items-start">
                   <h1 className="my-4 text-2xl font-bold">{item.title}</h1>
                   <div dangerouslySetInnerHTML={{ __html: item.content }}></div>
@@ -93,7 +93,7 @@ class IntroCarousel extends Component {
                 <div className="img-holder flex flex-col justify-center items-center">
                   <img src={item.img} alt="" srcSet="" />
                 </div>
-                {index === infoList.length - 1 ? <div onClick={() => (window.location.href = "/draw")}>Continue</div>: <div></div>}
+                {index === infoList.length - 1 ? <button style={{width: 'fit-content', alignSelf: 'center'}} className="mt-8" onClick={() => (window.location.href = "/draw")}>Continue</button>: <div></div>}
                 
               </div>
             );
