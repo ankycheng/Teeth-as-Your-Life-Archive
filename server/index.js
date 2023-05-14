@@ -40,10 +40,21 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('displayLayer', data);
     })
 
+    socket.on('newLayerAdded',(data)=>{
+        // console.log(data); 
+        socket.broadcast.emit('displayLatest', data);
+    })
+
     socket.on('updatePos',(data)=>{
         // console.log(data);
         // io.to(layerPageId).emit('data', data);
         io.emit('data',data)
+    })
+
+    socket.on('toothTouched',(data)=>{
+        console.log('tooth touched');
+        // io.to(layerPageId).emit('data', data);
+        io.emit('displayRandom')
     })
 
     socket.on('addLayer',(data)=>{
