@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { writeImageData, getDrawings } from "./db";
+import { writeImageData, getDrawings, deleteDrawing } from "./db";
 import "./DrawingList.scss";
 
 class DrawingList extends Component {
@@ -40,6 +40,7 @@ class DrawingList extends Component {
               <img src={archive.img} alt="" />
               <h3>uid: {archive.ts}</h3>
               <h3>Mood: {archive.mood}</h3>
+              <button onClick={()=>{deleteDrawing(archive.ts);this.updateArchive();}}>Delete</button>
             </div>
           );
         })}

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 // import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
-import { getDatabase, ref, set, get, child } from "firebase/database";
+import { getDatabase, ref, set, get, child, remove } from "firebase/database";
 // import { getFirestore, collection, getDocs } from 'firebase/firestore';
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
@@ -20,6 +20,27 @@ async function writeImageData(data) {
   set(ref(db, "data/"+ts), data);
 }
 
+
+const deleteDrawing = async function (id) {
+  const db = getDatabase(app);
+  const dbRef = ref(getDatabase(app));
+  let data = null;
+  let drawingRef = ref(db, `data/${id}`);
+
+  remove(drawingRef).then(() => {
+    console.log("location removed");
+  });
+
+  // let snapshot = await get(child(dbRef, `data/${id}`));
+  // if(snapshot.exists()){
+    
+  //   console.log(snapshot.val())
+  //   snapshot.remove()
+  // }
+  // return data
+}
+
+
 // Get a list of cities from your database
 const getDrawings = async function () {
   const db = getDatabase(app);
@@ -31,21 +52,6 @@ const getDrawings = async function () {
     data = snapshot.val()
   }
   return data
-
-    // .then((snapshot) => {
-    //   if (snapshot.exists()) {
-    //     // console.log(snapshot.val());
-    //     data = snapshot.val()
-    //     return data;
-    //   } else {
-    //     console.log("No data available");
-    //   }
-    // })
-    // .catch((error) => {
-    //   console.error(error);
-    // });
-
-  
 }
 
-export { writeImageData, getDrawings };
+export { writeImageData, getDrawings, deleteDrawing  };

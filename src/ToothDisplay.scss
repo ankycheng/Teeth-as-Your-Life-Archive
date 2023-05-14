@@ -1,0 +1,28 @@
+#tooth-display{
+    width: 100vw;
+    #display-image-holder{
+        filter: drop-shadow(0 0 2px #ffff00);
+        // border: yellow solid 1px;
+    }
+    #display-image-holder, #display-animation{
+        transition-duration: 2s;
+    }
+
+    #display-image-holder {
+        background-color: black;
+        position: absolute;
+        border-radius: 20px;
+        border-width: 3px;
+        width: 90%;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%,0);
+    }
+
+    .show{
+        opacity: 1;
+    }
+    .hide{
+        opacity: 0;
+    }
+}

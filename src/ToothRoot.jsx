@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getDrawings } from "./db";
-import "./ToothLayers.scss";
+import "./ToothRoot.scss";
 import {
   getPosData,
   selectLayer,
@@ -28,7 +28,7 @@ var s = document
   .createElementNS("http://www.w3.org/2000/svg", "svg")
   .createSVGPoint();
 
-class ToothLayers extends Component {
+class ToothRoot extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,14 +44,15 @@ class ToothLayers extends Component {
     // this.addIndicatorListener()
     buildLayerPageSC();
     this.updatePosData();
-    this.oneLayerAdded();
-    layerSocket.on('addLayer', ()=>{
-      console.log('add layer')
-      this.oneLayerAdded();
-    })
-    setInterval(() => {
-      this.updateLerpPos();
-    }, 10);
+
+    // this.oneLayerAdded();
+    // layerSocket.on('addLayer', ()=>{
+    //   console.log('add layer')
+    //   this.oneLayerAdded();
+    // })
+    // setInterval(() => {
+    //   this.updateLerpPos();
+    // }, 10);
 
     // document.addEventListener("mousemove", function (event) {
     //   let mouseX = event.clientX;
@@ -65,7 +66,7 @@ class ToothLayers extends Component {
   render() {
     return (
       <div id="layers" className="flex flex-col justify-center items-center">
-        <div id="indicator"></div>
+        {/* <div id="indicator"></div> */}
         <svg
           id="tooth-layer"
           xmlns="http://www.w3.org/2000/svg"
@@ -209,52 +210,24 @@ class ToothLayers extends Component {
       .createSVGPoint();
     // let timer = Date.now();
     let counter = 0;
+    let acc = 0;
+
     let moveIndicator = (timestamp) => {
-      let interval = Date.now() - start;
       let pos = getPosData();
-
-      if (pos.posYOnScreen) {
-        // console.log(pos);
-        let indicator = document.getElementById("indicator");
-        indicator.style.left = pos.posXOnScreen - svgRect.left + "px";
-        indicator.style.top = pos.posYOnScreen - svgRect.top + "px";
-
-        let indX = pos.posXOnScreen + svgRect.left;
-        let indY = pos.posYOnScreen + svgRect.top;
-        s.x = indX;
-        s.y = indY;
-        
-        mousePos.x = indX;
-        mousePos.y = indY;
-
-        layers.forEach((layerPath, index) => {
-          if (layerPath.isPointInStroke(s)) {
-            console.log("Mouse is on stroke " + layerPath.id);
-            console.log(this.state.currentSelectedPath);
-
-            if (this.state.currentSelectedPath !== layerPath.id) {
-              this.setState({
-                currentSelectedPath: layerPath.id,
-              });
-              counter = 0;
-            } else {
-              counter += 1;
-            }
-            // layerPath.style.filter = `drop-shadow(0 0 5px ${color})`;
-            layerPath.style.filter = `drop-shadow(0 0 5px yellow})`;
-            if (counter > 70) {
-              layerPath.style.stroke = "yellow";
-              // 4 is currently shown layer count: 5 -1
-              layerSocket.emit("selectLayer", 4 - index);
-            }
-            // selectLayer(layerSocket, layerPath.id);
-          } else {
-            // timer = Date.now();
-            layerPath.style.stroke = "white";
-          }
-        });
+      if(pos.y >320) {
+        acc += 1;
+        console.log(acc)
+        layers.forEach(l=>{
+          l.style.filter = `drop-shadow(0 0 ${20*acc/40}px yellow)`;
+        })
+        // svg.style.strokeWidth = `${5*acc/40}px`;
+        if(counter > 300 && acc > 40){
+          layerSocket.emit("toothTouched");
+          counter = 0;
+          acc = 0;
+        }
       }
-
+      counter += 1;
       requestAnimationFrame(moveIndicator); // queue request for next frame
     };
 
@@ -262,4 +235,4 @@ class ToothLayers extends Component {
   };
 }
 
-export default ToothLayers;
+export default ToothRoot;

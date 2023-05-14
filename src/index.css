@@ -33,7 +33,7 @@ a:hover {
 }
 
 span {
-  text-align: left;
+  text-align: center;
 }
 
 body {
@@ -44,9 +44,20 @@ body {
   min-height: 100vh;
 }
 
+body,html{
+  background-color: #000 !important;
+  touch-action: none;
+  overflow: hidden;
+}
+
 h1 {
-  font-size: 3.2em;
+  font-size: 2em;
   line-height: 1.1;
+  width: 100%;
+  text-align: center;
+}
+p{
+  text-align: center;
 }
 
 button {
@@ -89,7 +100,7 @@ button:focus-visible {
   justify-content: flex-start;
 }
 .carousel * {
-  text-align: left;
+  text-align: center;
 }
 .slider-wrapper.axis-horizontal{
   width: 100%;

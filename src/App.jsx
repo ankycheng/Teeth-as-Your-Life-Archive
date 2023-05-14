@@ -4,7 +4,10 @@ import IntroCarousel from "./IntroCarousel";
 import Drawing from "./Drawing";
 import DrawingList from "./DrawingList";
 import ToothLayers from "./ToothLayers";
+import ToothDisplay from "./ToothDisplay";
+import Result from "./Result";
 import "./App.scss";
+import ToothRoot from "./ToothRoot";
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +30,9 @@ class App extends Component {
             <Route path="draw" element={<Drawing />}></Route>
             <Route path="archive" element={<DrawingList />}></Route>
             <Route path="layers" element={<ToothLayers />}></Route>
+            <Route path="root" element={<ToothRoot />}></Route>
+            <Route path="display" element={<ToothDisplay />}></Route>
+            <Route path="result" element={<Result />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

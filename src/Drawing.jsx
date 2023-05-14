@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { writeImageData, getDrawings } from "./db";
+import { buildDrawingPageSC, drawingSocket } from "./socket.js";
 import "./Drawing.scss";
 
 const moodList = [
@@ -38,18 +39,20 @@ class Drawing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      state: "drawing", // drawing or mood or loading
+      state: "mood", // drawing or mood or select-vis or loading
       showLoading: false,
       selectedMood: null,
       drawingData: {
         img: null,
         mood: null,
+        sharing: false
       },
     };
     // this.componentDidMount();
   }
   componentDidMount() {
-    this.bindBtns();
+    buildDrawingPageSC();
+    // this.bindBtns();
     this.listeningForImageData();
     getDrawings();
   }
@@ -61,11 +64,8 @@ class Drawing extends Component {
           className={`"" ${this.state.state === "drawing" ? "show" : "hide"}`}
         >
           <div id="drawing-info" className="mb-4">
-            <h1 className={`mb-4`}>Share your experience!</h1>
-            <p>
-              Your story will be anonymous. However, please note that others
-              will be able to access and read any information you include here.
-            </p>
+            <h1 className={`mb-4`}>Put down your experience!</h1>
+            <p> Drawing or writing, any format you wish.</p>
           </div>
           {/* <button id="btn-drawdone">Next</button> */}
           <iframe
@@ -75,17 +75,13 @@ class Drawing extends Component {
         </div>
         <div
           id="drawing-mood"
-          className={`${this.state.state === "drawing" ? "hide" : "show"}`}
+          className={`${this.state.state === "mood" ? "show" : "hide"}`}
         >
           <h1 className={`mb-4`}>
             {" "}
-            What best describes your related feeling?{" "}
+            What describe your feeling in the experience?{" "}
           </h1>
-          <p>
-            Based on the drawing or text you have created, please select from
-            the options below the emotion that most accurately reflects how you
-            felt during the shared experience.
-          </p>
+          <p>Pick one that closest matches your feeling at the moment.</p>
           <div id="moods" className={`flex flex-wrap mt-4`}>
             {moodList.map((mood, i) => {
               return (
@@ -95,43 +91,99 @@ class Drawing extends Component {
                   className={`mood-card my-4 ${
                     this.state.selectedMood === i ? "selected" : ""
                   }`}
-                > 
-                  <div className="mood-img-holder flex align-center justify-center pt-4 pb-2"
-                    style={{backgroundColor: mood.color}}
+                >
+                  <div
+                    className="mood-img-holder flex align-center justify-center pt-4 pb-2"
+                    style={{ backgroundColor: mood.color }}
                   >
                     <img src={mood.img} alt="" />
                   </div>
-                  <div
-                    className="mood-card-tag flex align-center justify-center pt-2 pb-2"
-                  >
+                  <div className="mood-card-tag flex align-center justify-center pt-2 pb-2">
                     {moodList[i].mood}
                   </div>
                 </div>
               );
             })}
           </div>
-          <div className="mood-actions flex justify-between">
-            <button id="btn-redraw">Redraw</button>
-            <button id="btn-submit" 
-              onClick={
-                () => {
-                  this.writeImageData();
-                  this.playArchivingVideo();
-                }
-              }
+          <div className="mood-actions flex justify-center mt-4">
+            <button
+              id="btn-continue"
+              onClick={() => {
+                this.updateDrawState("drawing");
+              }}
+              className={`${
+                this.state.selectedMood !== null
+                  ? "continue-show"
+                  : "continue-hide"
+              }`}
             >
-              Finish
+              Continue
             </button>
           </div>
         </div>
-        <div id="drawing-archiving" className={`flex flex-col justify-center items-center ${this.state.showLoading === true ? "archive-show": "archive-hide"}`}>
-            <video>
-              <source src="./assets/loading.mp4" type="video/mp4" />
-            </video>
-            <div id="drawing-archiving-content">
-              <h3>Archiving</h3>
-              <span>Information about only impactful experience will be recorded.</span>
-            </div>
+        <div
+          id="select-visibility"
+          className={`flex flex-col align-center justify-center pt-2 pb-2 
+          ${this.state.state === "select-vis" ? "show" : "hide"}`}
+        >
+          <h1>Do you want it to be visible to others?</h1>
+          <div className={` buttons flex flex-row align-center justify-around mt-8 pt-2 pb-2 }`}
+          >
+            <button
+              onClick={() => {
+                this.setState((prevState) => ({
+                  drawingData: {
+                    ...prevState.drawingData,
+                    sharing: true
+                  },
+                }));
+                setTimeout(()=>{
+                  this.writeImageData()
+                }
+                ,1000);
+                
+                this.playArchivingVideo();
+              }}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => {
+                this.setState((prevState) => ({
+                  drawingData: {
+                    ...prevState.drawingData,
+                    sharing: false
+                  },
+                }));
+                this.writeImageData();
+                this.playArchivingVideo();
+              }}
+            >
+              No
+            </button>
+          </div>
+        </div>
+        <div
+          id="visible-selection"
+          className={`flex flex-col justify-center items-center ${
+            this.state.showLoading === true ? "archive-show" : "archive-hide"
+          }`}
+        ></div>
+        <div
+          id="drawing-archiving"
+          className={`flex flex-col justify-center items-center ${
+            this.state.showLoading === true ? "archive-show" : "archive-hide"
+          }`}
+        >
+          <video>
+            <source src="./assets/loading.mp4" type="video/mp4" />
+          </video>
+          <div id="drawing-archiving-content">
+            <h3>Archiving</h3>
+            <span>
+              Information about only impactful experience will be recorded.
+            </span>
+          </div>
         </div>
       </div>
     );
@@ -143,46 +195,47 @@ class Drawing extends Component {
   }
 
   bindBtns() {
-    let btnRedraw = document.getElementById("btn-redraw");
+    // let btnRedraw = document.getElementById("btn-redraw");
     // let btnDrawdone = document.getElementById("btn-drawdone");
-    let btnFinsih = document.getElementById("btn-submit");
-
+    // let btnFinsih = document.getElementById("btn-submit");
     // btnDrawdone.addEventListener("click", () => {
     //   this.updateDrawState();
     // });
-    btnRedraw.addEventListener("click", () => {
-      this.updateDrawState();
-    });
-    btnFinsih.addEventListener("click", () => {
-      let ifm = document.getElementById("sketch-iframe");
-      // ifm.contentWindow.submit();
-      ifm.contentWindow.postMessage(
-        /*any variable or object here*/ "a",
-        "https://beryl-lilac-plot.glitch.me/"
-      );
-    });
+    // btnRedraw.addEventListener("click", () => {
+    //   this.updateDrawState();
+    // });
+    // btnFinsih.addEventListener("click", () => {
+    //   let ifm = document.getElementById("sketch-iframe");
+    //   // ifm.contentWindow.submit();
+    //   ifm.contentWindow.postMessage(
+    //     /*any variable or object here*/ "a",
+    //     "https://beryl-lilac-plot.glitch.me/"
+    //   );
+    // });
   }
 
-  playArchivingVideo(){
+  playArchivingVideo() {
     this.setState({
-      showLoading: true
-    })
-    const videoEl = document.querySelector('#drawing-archiving video');
+      showLoading: true,
+    });
+    const videoEl = document.querySelector("#drawing-archiving video");
     videoEl.play();
-    videoEl.addEventListener('ended', ()=>{
-      console.log('end')
-    })
+    videoEl.addEventListener("ended", () => {
+      // console.log('end')
+      drawingSocket.emit("newLayerAdded");
+      window.location.href = "/result?type=archive";
+    });
   }
-
 
   listeningForImageData() {
     window.addEventListener("message", (event) => {
       // IMPORTANT: check the origin of the data!
+      // console.log(event)
       if (event.origin.includes("glitch")) {
         console.log("parent receives message");
         console.log(event);
         if (event.data.img) {
-          this.updateDrawState();
+          this.updateDrawState("select-vis");
           this.updateDrawingData(event.data.img);
         } else {
           console.error("wrong data type");
@@ -191,9 +244,10 @@ class Drawing extends Component {
     });
   }
 
-  updateDrawState() {
+  updateDrawState(state) {
     this.setState({
-      state: this.state.state === "drawing" ? "mood" : "drawing",
+      // state: this.state.state === "drawing" ? "mood" : "drawing",
+      state: state,
     });
   }
 
